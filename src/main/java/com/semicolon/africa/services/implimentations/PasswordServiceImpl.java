@@ -77,7 +77,7 @@ public class PasswordServiceImpl implements PasswordService {
         response.setPassword(password.getPassword());
         response.setEmail(password.getEmail());
         response.setWebsiteLink(password.getWebsiteLink());
-        response.setId(password.getPasswordId());
+        response.setId(password.getId());
         return response;
     }
 

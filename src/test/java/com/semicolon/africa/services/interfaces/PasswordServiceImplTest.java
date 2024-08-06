@@ -100,7 +100,7 @@ public class PasswordServiceImplTest {
     }
 
     @Test
-    public void testThatICanFindId(){
+    public void testThatICanFindById(){
         AddPasswordResponse response = createPassword();
         FindPasswordRequest request = new FindPasswordRequest();
         request.setId(response.getId());
