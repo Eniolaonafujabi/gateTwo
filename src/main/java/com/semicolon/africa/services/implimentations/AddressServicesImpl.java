@@ -3,16 +3,17 @@ package com.semicolon.africa.services.implimentations;
 import com.semicolon.africa.data.models.Address;
 import com.semicolon.africa.data.repositories.AddressRepo;
 import com.semicolon.africa.dtos.request.AddAddressRequest;
+import com.semicolon.africa.dtos.request.DeleteAddressRequest;
 import com.semicolon.africa.dtos.request.FindAddressRequest;
-import com.semicolon.africa.dtos.request.UpdateAddressRequest;
 import com.semicolon.africa.dtos.response.AddAddressResponse;
+import com.semicolon.africa.dtos.response.DeleteAddressResponse;
 import com.semicolon.africa.dtos.response.FindAddressResponse;
-import com.semicolon.africa.dtos.response.UpdateAddressResponse;
 import com.semicolon.africa.exception.AddressException;
 import com.semicolon.africa.services.interfaces.AddressServicesInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.semicolon.africa.util.Mapper.map;
@@ -44,66 +45,102 @@ public class AddressServicesImpl implements AddressServicesInterface {
 
     @Override
     public List<FindAddressResponse> findByFirstName(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByFirstName(request.getFirstName());
+        return arrangeResponses(responses, addresses);
     }
+
+    private List<FindAddressResponse> arrangeResponses(List<FindAddressResponse> responses, List<Address> addresses) {
+        for (Address address : addresses) {
+            FindAddressResponse response = new FindAddressResponse();
+            map(response,address);
+            responses.add(response);
+        }
+        return responses;
+    }
+
 
     @Override
     public List<FindAddressResponse> findByMiddleName(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByMiddleName(request.getMiddleName());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByLastName(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByLastName(request.getLastName());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByGender(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByGender(request.getGender());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByCompany(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByCompany(request.getCompany());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByAddress1(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByAddress1(request.getAddress1());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByAddress2(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByAddress2(request.getAddress2());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByCityOrTown(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByCity(request.getCityOrTown());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByCountry(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByCountry(request.getCountry());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByState(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByState(request.getState());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByPhoneNumber(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByPhone(request.getPhone());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
     public List<FindAddressResponse> findByEmail(FindAddressRequest request) {
-        return List.of();
+        List<FindAddressResponse> responses = new ArrayList<>();
+        List<Address> addresses = addressRepo.findByEmail(request.getEmail());
+        return arrangeResponses(responses,addresses);
     }
 
     @Override
-    public UpdateAddressResponse update(UpdateAddressRequest request) {
+    public DeleteAddressResponse delete(DeleteAddressRequest addressRequest) {
         return null;
     }
+
+
 }

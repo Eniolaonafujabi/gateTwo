@@ -1,12 +1,12 @@
 package com.semicolon.africa.services.interfaces;
 
 
-import com.semicolon.africa.dtos.request.UpdateAddressRequest;
+import com.semicolon.africa.dtos.request.DeleteAddressRequest;
+import com.semicolon.africa.dtos.response.DeleteAddressResponse;
 import com.semicolon.africa.dtos.response.FindAddressResponse;
 import com.semicolon.africa.dtos.response.AddAddressResponse;
 import com.semicolon.africa.dtos.request.FindAddressRequest;
 import com.semicolon.africa.dtos.request.AddAddressRequest;
-import com.semicolon.africa.dtos.response.UpdateAddressResponse;
 
 import java.util.List;
 
@@ -39,5 +39,5 @@ public interface AddressServicesInterface {
 
     List<FindAddressResponse> findByEmail(FindAddressRequest request);
 
-    UpdateAddressResponse update(UpdateAddressRequest request);
+    DeleteAddressResponse delete(DeleteAddressRequest addressRequest);
 }

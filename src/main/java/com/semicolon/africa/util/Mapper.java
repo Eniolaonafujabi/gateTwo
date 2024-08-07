@@ -63,7 +63,7 @@ public class Mapper {
         address.setCompany(request.getCompany());
         address.setAddress1(request.getAddress1());
         address.setAddress2(request.getAddress2());
-        address.setCityOrTown(request.getCityOrTown());
+        address.setCity(request.getCityOrTown());
         address.setState(request.getState());
         address.setCountry(request.getCountry());
         address.setPhone(request.getPhone());
@@ -79,7 +79,7 @@ public class Mapper {
         addAddressResponse.setCompany(address.getCompany());
         addAddressResponse.setAddress1(address.getAddress1());
         addAddressResponse.setAddress2(address.getAddress2());
-        addAddressResponse.setCityOrTown(address.getCityOrTown());
+        addAddressResponse.setCityOrTown(address.getCity());
         addAddressResponse.setState(address.getState());
         addAddressResponse.setCountry(address.getCountry());
         addAddressResponse.setPhone(address.getPhone());
@@ -96,7 +96,7 @@ public class Mapper {
         response.setCompany(address.getCompany());
         response.setAddress1(address.getAddress1());
         response.setAddress2(address.getAddress2());
-        response.setCityOrTown(address.getCityOrTown());
+        response.setCityOrTown(address.getCity());
         response.setState(address.getState());
         response.setCountry(address.getCountry());
         response.setPhone(address.getPhone());

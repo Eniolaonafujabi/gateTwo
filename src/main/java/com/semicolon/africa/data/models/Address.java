@@ -16,7 +16,7 @@ public class Address {
     private String company;
     private String address1;
     private String address2;
-    private String cityOrTown;
+    private String city;
     private String state;
     private String zipPostalCode;
     private String country;
