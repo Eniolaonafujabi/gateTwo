@@ -2,8 +2,10 @@ package com.semicolon.africa.services.implimentations;
 
 import com.semicolon.africa.data.repositories.AddressRepo;
 import com.semicolon.africa.dtos.request.AddAddressRequest;
+import com.semicolon.africa.dtos.request.DeleteAddressRequest;
 import com.semicolon.africa.dtos.request.FindAddressRequest;
 import com.semicolon.africa.dtos.response.AddAddressResponse;
+import com.semicolon.africa.dtos.response.DeleteAddressResponse;
 import com.semicolon.africa.dtos.response.FindAddressResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -177,5 +179,14 @@ public class AddressImplTest {
         request.setEmail(response.getEmail());
         List<FindAddressResponse> responses = addressService.findByEmail(request);
         assertThat(responses.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void testThatYouCanDeleteAddress(){
+        AddAddressResponse response = createAddress();
+        DeleteAddressRequest request = new DeleteAddressRequest();
+        request.setId(response.getId());
+        DeleteAddressResponse response1 =  addressService.delete(request);
+        assertThat(response1.getMessage()).contains("Successfully deleted address");
     }
 }

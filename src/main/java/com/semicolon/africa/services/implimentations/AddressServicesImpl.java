@@ -9,7 +9,7 @@ import com.semicolon.africa.dtos.response.AddAddressResponse;
 import com.semicolon.africa.dtos.response.DeleteAddressResponse;
 import com.semicolon.africa.dtos.response.FindAddressResponse;
 import com.semicolon.africa.exception.AddressException;
-import com.semicolon.africa.services.interfaces.AddressServicesInterface;
+import com.semicolon.africa.services.interfaces.AddressServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.List;
 import static com.semicolon.africa.util.Mapper.map;
 
 @Service
-public class AddressServicesImpl implements AddressServicesInterface {
+public class AddressServicesImpl implements AddressServices {
 
     @Autowired
     private AddressRepo addressRepo;
@@ -139,7 +139,12 @@ public class AddressServicesImpl implements AddressServicesInterface {
 
     @Override
     public DeleteAddressResponse delete(DeleteAddressRequest addressRequest) {
-        return null;
+        Address address = addressRepo.findById(addressRequest.getId())
+                .orElseThrow(() -> new AddressException("No address found"));
+        addressRepo.delete(address);
+        DeleteAddressResponse response = new DeleteAddressResponse();
+        response.setMessage("Successfully deleted address");
+        return response;
     }
 
 

@@ -10,7 +10,7 @@ import com.semicolon.africa.dtos.request.AddAddressRequest;
 
 import java.util.List;
 
-public interface AddressServicesInterface {
+public interface AddressServices {
     AddAddressResponse createAddress(AddAddressRequest request);
 
     FindAddressResponse findById(FindAddressRequest request);

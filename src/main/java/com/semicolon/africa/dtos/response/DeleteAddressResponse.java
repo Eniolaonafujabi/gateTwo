@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class DeleteAddressResponse {
 
-    private String id;
+    private String message;
 }
