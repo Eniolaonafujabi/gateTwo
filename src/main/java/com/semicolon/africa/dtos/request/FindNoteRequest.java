@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class DeleteNoteRequest {
-    private String Id;
+public class FindNoteRequest {
+    private String id;
     private String title;
 }

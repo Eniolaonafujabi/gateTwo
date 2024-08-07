@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class UpdateNoteResponce {
-    private int id;
+public class UpdateNoteResponse {
+    private String  id;
     private String title;
     private String content;
     private String message;
