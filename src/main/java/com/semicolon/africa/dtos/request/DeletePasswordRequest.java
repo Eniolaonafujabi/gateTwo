@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DeletePasswordRequest {
+    private String userId;
     private String id;
     private String webLink;
 }

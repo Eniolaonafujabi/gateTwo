@@ -1,8 +1,10 @@
 package com.semicolon.africa.services.implimentations;
 
 import com.semicolon.africa.data.repositories.Users;
+import com.semicolon.africa.dtos.request.AddPasswordRequest;
 import com.semicolon.africa.dtos.request.LogInRequest;
 import com.semicolon.africa.dtos.request.RegisterUserRequest;
+import com.semicolon.africa.dtos.response.AddPasswordResponse;
 import com.semicolon.africa.dtos.response.LogInResponse;
 import com.semicolon.africa.dtos.response.RegisterUserResponse;
 import com.semicolon.africa.exception.UserException;
@@ -32,7 +34,6 @@ public class UserServicesImplTest {
        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
         registerUserRequest.setEmail("eniola@Gmail.com");
         registerUserRequest.setPassword("password");
-        registerUserRequest.setPassword("1234");
         return userServices.registerUser(registerUserRequest);
     }
 
@@ -55,16 +56,21 @@ public class UserServicesImplTest {
         assertThrows(UserException.class, this::registerUser);
     }
 
+    private LogInResponse userLogIn(){
+        LogInRequest logInRequest = new LogInRequest();
+        logInRequest.setEmail("eniola@Gmail.com");
+        logInRequest.setPassword("password");
+        return userServices.logIn(logInRequest);
+    }
+
     @Test
     public void testThatRegisterUserCanLogIn(){
         RegisterUserResponse registerUserResponse = registerUser();
         assertThat(registerUserResponse.getMessage()).contains("Successfully registered");
-        LogInRequest logInRequest = new LogInRequest();
-        logInRequest.setEmail("eniola@gmail.com");
-        logInRequest.setPassword("password");
-        LogInResponse response = userServices.logIn(logInRequest);
+        LogInResponse response = userLogIn();
         assertThat(response.getMessage()).contains("Successfully logged in");
     }
+
 
     @Test
     public void testThatUserCan_LoginWithWrongPassword(){
@@ -76,11 +82,28 @@ public class UserServicesImplTest {
     }
 
     @Test
-    public void testThatUserCan_LoginWithWrongEmail(){
+    public void testThatUserCan_tLoginWithWrongEmail(){
         registerUser();
         LogInRequest logInRequest = new LogInRequest();
         logInRequest.setEmail("eniola11@gmail.com");
         logInRequest.setPassword("password");
         assertThrows(UserException.class, ()-> userServices.logIn(logInRequest));
+    }
+
+    private AddPasswordResponse savePassword() {
+        RegisterUserResponse response = registerUser();
+        userLogIn();
+        AddPasswordRequest request = new AddPasswordRequest();
+        request.setUserId(response.getId());
+        request.setUserName("sonOfTheBlackMan");
+        request.setWebsiteLink("app.com");
+        request.setPassword("password");
+        request.setEmail("eniola@gmail.com");
+        return userServices.addPassword(request);
+    }
+    @Test
+    public void testThatUserCanSavePassword(){
+        AddPasswordResponse response = savePassword();
+        assertThat(response.getMessage()).contains("Saved Password");
     }
 }

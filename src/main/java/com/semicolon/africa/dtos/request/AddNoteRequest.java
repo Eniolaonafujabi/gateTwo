@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AddNoteRequest{
+    private String userId;
     private String title;
     private String content;
 }

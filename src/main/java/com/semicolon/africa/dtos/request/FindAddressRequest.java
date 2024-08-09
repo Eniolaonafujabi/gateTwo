@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FindAddressRequest {
+    private String userId;
     private String id;
     private String firstName;
     private String middleName;

@@ -27,6 +27,7 @@ public class Mapper {
         response.setMessage("Saved Password");
     }
 
+
     public static void map(FindPasswordResponse response, Password password) {
         password.setPassword(response.getPassword());
         password.setEmail(response.getEmail());
@@ -112,6 +113,7 @@ public class Mapper {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setPhoneNumber(request.getPhoneNumber());
+        user.setRegistered(true);
     }
     public static void map(RegisterUserResponse response, User user){
         response.setId(user.getId());
@@ -119,5 +121,31 @@ public class Mapper {
         response.setPassword(user.getPassword());
         response.setPhoneNumber(user.getPhoneNumber());
         response.setMessage("Successfully registered");
+    }
+
+    public static void map(AddPasswordResponse response,Password password){
+        password.setPassword(response.getPassword());
+        password.setId(response.getId());
+        password.setUserName(response.getUserName());
+        password.setEmail(response.getEmail());
+        password.setWebsiteLink(response.getWebsiteLink());
+    }
+
+    public static void map(Address address,AddAddressResponse response){
+        address.setId(response.getId());
+        address.setFirstName(response.getFirstName());
+        address.setLastName(response.getLastName());
+        address.setMiddleName(response.getMiddleName());
+        address.setGender(response.getGender());
+        address.setBirthday(response.getBirthday());
+        address.setCompany(response.getCompany());
+        address.setAddress1(response.getAddress1());
+        address.setAddress2(response.getAddress2());
+        address.setCity(response.getCityOrTown());
+        address.setState(response.getState());
+        address.setCountry(response.getCountry());
+        address.setPhone(response.getPhone());
+        address.setZipPostalCode(response.getZipPostalCode());
+        address.setEmail(response.getEmail());
     }
 }

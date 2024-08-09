@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FindPasswordRequest {
+    private String userId;
     private String id;
     private String email;
     private String userName;

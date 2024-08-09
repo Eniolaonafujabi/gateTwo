@@ -5,10 +5,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class UpdateNoteRequest {
-    private String userId;
+public class LogOutRequest {
     private String id;
-    private String title;
-    private String content;
-
 }
