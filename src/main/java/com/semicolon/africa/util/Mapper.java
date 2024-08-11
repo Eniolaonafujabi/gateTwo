@@ -10,17 +10,21 @@ import com.semicolon.africa.dtos.request.AddPasswordRequest;
 import com.semicolon.africa.dtos.request.RegisterUserRequest;
 import com.semicolon.africa.dtos.response.*;
 
+import static com.semicolon.africa.util.PasswordUtil.decryptPassword;
+import static com.semicolon.africa.util.PasswordUtil.encryptPassword;
+
+
 public class Mapper {
     public static void map(Password password, AddPasswordRequest request) {
         password.setUserName(request.getUserName());
-        password.setPassword(request.getPassword());
+        password.setPassword(encryptPassword(request.getPassword()));
         password.setWebsiteLink(request.getWebsiteLink());
         password.setEmail(request.getEmail());
     }
 
     public static void map(Password password, AddPasswordResponse response) {
         response.setId(password.getId());
-        response.setPassword(password.getPassword());
+        response.setPassword(decryptPassword(password.getPassword()));
         response.setEmail(password.getEmail());
         response.setWebsiteLink(password.getWebsiteLink());
         response.setUserName(password.getUserName());
@@ -29,7 +33,7 @@ public class Mapper {
 
 
     public static void map(FindPasswordResponse response, Password password) {
-        password.setPassword(response.getPassword());
+        password.setPassword(decryptPassword(response.getPassword()));
         password.setEmail(response.getEmail());
         password.setWebsiteLink(response.getWebsiteLink());
         password.setUserName(response.getUserName());
@@ -111,20 +115,20 @@ public class Mapper {
     }
     public static void map(RegisterUserRequest request, User user){
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(encryptPassword(request.getPassword()));
         user.setPhoneNumber(request.getPhoneNumber());
         user.setRegistered(true);
     }
     public static void map(RegisterUserResponse response, User user){
         response.setId(user.getId());
         response.setEmail(user.getEmail());
-        response.setPassword(user.getPassword());
+        response.setPassword(decryptPassword(user.getPassword()));
         response.setPhoneNumber(user.getPhoneNumber());
         response.setMessage("Successfully registered");
     }
 
     public static void map(AddPasswordResponse response,Password password){
-        password.setPassword(response.getPassword());
+        password.setPassword(decryptPassword(response.getPassword()));
         password.setId(response.getId());
         password.setUserName(response.getUserName());
         password.setEmail(response.getEmail());

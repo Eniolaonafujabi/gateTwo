@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.semicolon.africa.util.Mapper.map;
+import static com.semicolon.africa.util.PasswordUtil.decryptPassword;
 
 @Service
 public class UserServicesImpl implements UserServices {
@@ -63,7 +64,7 @@ public class UserServicesImpl implements UserServices {
     public LogInResponse logIn(LogInRequest request) {
         LogInResponse response = new LogInResponse();
         User user = findUserByEmail(request.getEmail());
-        if (user.getPassword().equals(request.getPassword())) {
+        if (decryptPassword(user.getPassword()).equals(request.getPassword())) {
             user.setState(true);
             users.save(user);
             response.setMessage("Successfully logged in");
@@ -106,7 +107,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public List<FindPasswordResponse> findPasswordByEmail(FindPasswordRequest request) {
-        User user = findUserById(request.getId());
+        User user = findUserById(request.getUserId());
         if (user.isState()){
             return passwordService.findPasswordByEmail(request);
         }
@@ -115,7 +116,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public List<FindPasswordResponse> findPasswordByUsername(FindPasswordRequest request) {
-        User user = findUserById(request.getId());
+        User user = findUserById(request.getUserId());
         if (user.isState()){
            return passwordService.findPasswordByUsername(request);
         }
@@ -124,7 +125,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public List<FindPasswordResponse> findPassWordByWebLink(FindPasswordRequest request) {
-        User user = findUserById(request.getId());
+        User user = findUserById(request.getUserId());
         if (user.isState()){
             return passwordService.findPassWordByWebLink(request);
         }
@@ -357,6 +358,6 @@ public class UserServicesImpl implements UserServices {
 
     private User findUserById(String id) {
         return users.findById(id)
-                .orElseThrow(() -> new UserException("Log In"));
+                .orElseThrow(() -> new UserException("User not found"));
     }
 }

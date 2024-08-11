@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.semicolon.africa.util.Mapper.map;
+import static com.semicolon.africa.util.PasswordUtil.decryptPassword;
+import static com.semicolon.africa.util.PasswordUtil.encryptPassword;
 
 
 @Service
@@ -47,9 +49,9 @@ public class PasswordServiceImpl implements PasswordService {
         List<FindPasswordResponse> responses = new ArrayList<>();
         for (Password password : passwords) {
             FindPasswordResponse response = new FindPasswordResponse();
-            response.setPassword(password.getPassword());
+            response.setPassword(decryptPassword(password.getPassword()));
             response.setEmail(password.getEmail());
-            response.setUserName(password.getEmail());
+            response.setUserName(password.getUserName());
             response.setWebsiteLink(password.getWebsiteLink());
             responses.add(response);
         }
@@ -74,8 +76,8 @@ public class PasswordServiceImpl implements PasswordService {
                 .orElseThrow(()->new NotFoundException("Not Found"));
         FindPasswordResponse response = new FindPasswordResponse();
         response.setUserName(password.getEmail());
-        response.setPassword(password.getPassword());
-        response.setEmail(password.getEmail());
+        response.setPassword(decryptPassword(password.getPassword()));
+        response.setEmail(password.getUserName());
         response.setWebsiteLink(password.getWebsiteLink());
         response.setId(password.getId());
         return response;

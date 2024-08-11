@@ -54,6 +54,7 @@ public class NoteServicesImpl implements NoteServices {
                 .orElseThrow(() -> new NoteException("Note Not Found"));
         checkIfTitleExit(request.getTitle());
         if(request.getTitle() == null ) note.setTitle(note.getTitle());
+        note.setTitle(request.getTitle());
         note.setContent(request.getContent());
         noteRepo.save(note);
         UpdateNoteResponse response = new UpdateNoteResponse();
