@@ -195,4 +195,14 @@ public class UserController {
             return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
         }
     }
+
+    @PostMapping("addAddress")
+    public ResponseEntity<?> addAddress(@RequestBody AddAddressRequest addressRequest){
+        try {
+            AddAddressResponse addAddressResponse = userServices.createUserAddress(addressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, addAddressResponse), CREATED);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
 }
