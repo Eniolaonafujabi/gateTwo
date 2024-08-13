@@ -38,12 +38,33 @@ public class UserServicesImpl implements UserServices {
     public RegisterUserResponse registerUser(RegisterUserRequest request) {
         User user = new User();
         emailExits(request.getEmail());
+        validateEmail(request.getEmail());
         phoneNumberExits(request.getPhoneNumber());
+        validatePhoneNumber(request.getPhoneNumber());
         map(request,user);
         users.save(user);
         RegisterUserResponse response = new RegisterUserResponse();
         map(response,user);
         return response;
+    }
+
+    private void validatePhoneNumber(String phoneNumber) {
+        String newPhoneNumber = phoneNumber.trim();
+        if(newPhoneNumber.isEmpty())throw new UserException("Invalid phone number");
+    }
+
+    private void validateEmail(String email) {
+        int counter = 0;
+        for(int count =0; count<email.length(); count++) {
+            if(email.charAt(count)=='@') counter++;
+        }
+        if(counter != 1)throw new UserException("Invalid email address");
+        validateEmailForWhiteSpace(email);
+    }
+
+    private void validateEmailForWhiteSpace(String email) {
+        String newEmail = email.trim();
+        if (newEmail.isEmpty())throw new UserException("Invalid email address");
     }
 
     private void phoneNumberExits(String phoneNumber) {
@@ -64,6 +85,7 @@ public class UserServicesImpl implements UserServices {
     public LogInResponse logIn(LogInRequest request) {
         LogInResponse response = new LogInResponse();
         User user = findUserByEmail(request.getEmail());
+        validatePhoneNumber(request.getPassword());
         if (decryptPassword(user.getPassword()).equals(request.getPassword())) {
             user.setState(true);
             users.save(user);

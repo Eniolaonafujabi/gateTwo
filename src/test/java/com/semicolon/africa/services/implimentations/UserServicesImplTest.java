@@ -29,8 +29,6 @@ public class UserServicesImplTest {
 
     @Autowired
     private Users users;
-    @Autowired
-    private PasswordServiceImpl passwordServiceImpl;
 
     @Autowired
     private PasswordRepo passwordRepo;
@@ -44,6 +42,7 @@ public class UserServicesImplTest {
     private RegisterUserResponse registerUser() {
        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
         registerUserRequest.setEmail("eniola@gmail.com");
+        registerUserRequest.setPhoneNumber("08146997803");
         registerUserRequest.setPassword("password");
         return userServices.registerUser(registerUserRequest);
     }
@@ -125,10 +124,43 @@ public class UserServicesImplTest {
         AddPasswordResponse response = savePassword(response1.getId());
         FindPasswordRequest request = new FindPasswordRequest();
         request.setEmail(response.getEmail());
-        List<FindPasswordResponse> findPasswordResponse = passwordServiceImpl.findPasswordByEmail(request);
+        List<FindPasswordResponse> findPasswordResponse = userServices.findPasswordByEmail(request);
         assertThat(findPasswordResponse.size()).isEqualTo(1);
     }
 
-//    @Test
+    @Test
+    public void testThatIfYouPutSpaceInPasswordThrowExeception(){
+        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setEmail("eniola@gmail.com");
+        registerUserRequest.setPhoneNumber("     ");
+        registerUserRequest.setPassword("password");
+        assertThrows(UserException.class,()-> userServices.registerUser(registerUserRequest));
+    }
 
+    @Test
+    public void testThatIfYouPutSpaceInEmailThrowExeception(){
+        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setEmail("    ");
+        registerUserRequest.setPhoneNumber("91673828");
+        registerUserRequest.setPassword("password");
+        assertThrows(UserException.class,()-> userServices.registerUser(registerUserRequest));
+    }
+
+    @Test
+    public void testThatIfYouDon_tPutAtAnnotationInEmailThrowExeception(){
+        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setEmail("hbhfdhbdhbdhbf");
+        registerUserRequest.setPhoneNumber("91673828");
+        registerUserRequest.setPassword("password");
+        assertThrows(UserException.class,()-> userServices.registerUser(registerUserRequest));
+    }
+
+    @Test
+    public void testThatIfYouPutAtAnnotationInEmailMoreThanOneThrowExeception(){
+        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setEmail("hbhf@@@dhbdhbdhbf");
+        registerUserRequest.setPhoneNumber("91673828");
+        registerUserRequest.setPassword("password");
+        assertThrows(UserException.class,()-> userServices.registerUser(registerUserRequest));
+    }
 }
