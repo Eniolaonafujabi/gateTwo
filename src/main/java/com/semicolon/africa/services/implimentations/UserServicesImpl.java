@@ -84,8 +84,8 @@ public class UserServicesImpl implements UserServices {
     @Override
     public LogInResponse logIn(LogInRequest request) {
         LogInResponse response = new LogInResponse();
+        validateEmail(request.getEmail());
         User user = findUserByEmail(request.getEmail());
-        validatePhoneNumber(request.getPassword());
         if (decryptPassword(user.getPassword()).equals(request.getPassword())) {
             user.setState(true);
             users.save(user);
