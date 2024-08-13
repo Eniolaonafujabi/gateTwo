@@ -37,8 +37,7 @@ public class NoteServicesImplTest {
         AddNoteRequest request = new AddNoteRequest();
         request.setTitle("Title");
         request.setContent("Content");
-        AddNoteResponse response = noteServices.createNote(request);
-        return response;
+        return noteServices.createNote(request);
     }
 
     @Test
@@ -75,8 +74,8 @@ public class NoteServicesImplTest {
         request.setId(response.getId());
         request.setTitle("");
         request.setContent("Content");
-        UpdateNoteResponse responce = noteServices.updateNote(request);
-        assertThat(responce.getTitle()).contains("Title");
+        UpdateNoteResponse response1 = noteServices.updateNote(request);
+        assertThat(response1.getTitle()).contains("Title");
     }
 
     @Test

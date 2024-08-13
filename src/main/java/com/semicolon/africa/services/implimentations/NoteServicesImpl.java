@@ -69,7 +69,7 @@ public class NoteServicesImpl implements NoteServices {
         Note note = noteRepo.findById(request.getId())
                 .orElseThrow(() -> new NoteException("Note Not Found"));
         checkIfTitleExit(request.getTitle());
-        if(request.getTitle() == null ) note.setTitle(note.getTitle());
+        if(request.getTitle() == null || request.getTitle().isEmpty()) note.setTitle(note.getTitle());
         note.setTitle(request.getTitle());
         note.setContent(request.getContent());
         noteRepo.save(note);
