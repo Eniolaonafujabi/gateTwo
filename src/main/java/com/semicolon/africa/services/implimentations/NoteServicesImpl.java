@@ -25,13 +25,29 @@ public class NoteServicesImpl implements NoteServices {
     @Override
     public AddNoteResponse createNote(AddNoteRequest request) {
         Note note = new Note();
+        validateTitle(request.getTitle());
         checkIfTitleExit(request.getTitle());
+        validateContent(request.getContent());
         checkRequestState(request);
         map(request,note);
         noteRepo.save(note);
         AddNoteResponse response = new AddNoteResponse();
         map(response,note);
         return response;
+    }
+
+    private void validateContent(String content) {
+        String newContent = content.trim();
+        if (newContent.isEmpty()) {
+            throw new NoteException("Content cannot be empty");
+        }
+    }
+
+    private void validateTitle(String title) {
+        String newTitle = title.trim();
+        if (newTitle.isEmpty()) {
+            throw new NoteException("Title cannot be empty");
+        }
     }
 
     private void checkRequestState(AddNoteRequest request) {
