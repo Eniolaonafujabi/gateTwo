@@ -10,7 +10,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@Document
+@Document("PhoneNumberManagementUser")
 public class User {
     private String id;
     private String email;

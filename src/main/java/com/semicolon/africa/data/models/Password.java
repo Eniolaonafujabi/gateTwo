@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Setter
 @Getter
-@Document
+@Document("PhoneNumberManagementPassword")
 public class Password {
     @Id
     private String id;

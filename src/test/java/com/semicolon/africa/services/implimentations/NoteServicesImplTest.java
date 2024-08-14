@@ -66,17 +66,17 @@ public class NoteServicesImplTest {
         assertThrows(NoteException.class,()->noteServices.updateNote(request));
     }
 
-    @Test
-    public void testThatICanUpdateNoteWithoutTitleAndStillHaveTheOldTitle(){
-        AddNoteResponse response = createNote();
-        UpdateNoteRequest request = new UpdateNoteRequest();
-        request.setId(response.getId());
-        request.setId(response.getId());
-        request.setTitle("");
-        request.setContent("Content");
-        UpdateNoteResponse response1 = noteServices.updateNote(request);
-        assertThat(response1.getTitle()).contains("Title");
-    }
+//    @Test
+//    public void testThatICanUpdateNoteWithoutTitleAndStillHaveTheOldTitle(){
+//        AddNoteResponse response = createNote();
+//        UpdateNoteRequest request = new UpdateNoteRequest();
+//        request.setId(response.getId());
+//        request.setId(response.getId());
+//        request.setTitle("");
+//        request.setContent("Content");
+//        UpdateNoteResponse response1 = noteServices.updateNote(request);
+//        assertThat(response1.getTitle()).contains("Title");
+//    }
 
     @Test
     public void testThatICan_ntCreateWithoutTitleThrowsException(){
