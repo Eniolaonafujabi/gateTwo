@@ -124,6 +124,7 @@ public class UserServicesImplTest {
         AddPasswordResponse response = savePassword(response1.getId());
         FindPasswordRequest request = new FindPasswordRequest();
         request.setEmail(response.getEmail());
+        request.setUserId(response1.getId());
         List<FindPasswordResponse> findPasswordResponse = userServices.findPasswordByEmail(request);
         assertThat(findPasswordResponse.size()).isEqualTo(1);
     }

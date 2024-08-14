@@ -13,6 +13,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/user/")
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     private final UserServices userServices;
@@ -202,6 +203,36 @@ public class UserController {
         try {
             AddAddressResponse addAddressResponse = userServices.createUserAddress(addressRequest);
             return new ResponseEntity<>(new ApiResponse(true, addAddressResponse), CREATED);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("findAddressById")
+    public ResponseEntity<?> findAddressById(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            FindAddressResponse findAddressResponse = userServices.findAddressById(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("findAddressByFirstName")
+    public ResponseEntity<?> findAddressByFirstName(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByFirstName(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("findAddressByMiddleName")
+    public ResponseEntity<?> findAddressByMiddleName(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByMiddleName(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
         }catch (Exception message){
             return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
         }
