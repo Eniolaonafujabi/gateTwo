@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Setter
 @Getter
-@Document
+@Document("PhoneNumberManagementAddresses")
 public class Address {
     private String id;
     private String firstName;

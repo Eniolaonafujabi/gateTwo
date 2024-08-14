@@ -51,7 +51,7 @@ public class NoteServicesImpl implements NoteServices {
     }
 
     private void checkRequestState(AddNoteRequest request) {
-        if (request.getTitle() == null || request.getTitle().equals("")) {
+        if (request.getTitle() == null || request.getTitle().isEmpty()) {
             throw new NoteException("Title is required");
         }
         String title = request.getTitle();
@@ -69,7 +69,8 @@ public class NoteServicesImpl implements NoteServices {
         Note note = noteRepo.findById(request.getId())
                 .orElseThrow(() -> new NoteException("Note Not Found"));
         checkIfTitleExit(request.getTitle());
-        if(request.getTitle() == null || request.getTitle().isEmpty()) note.setTitle(note.getTitle());
+        validateTitle(request.getTitle());
+//        if(request.getTitle() == null || request.getTitle().isEmpty()) note.setTitle(note.getTitle());
         note.setTitle(request.getTitle());
         note.setContent(request.getContent());
         noteRepo.save(note);
