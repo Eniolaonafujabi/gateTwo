@@ -6,5 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class LogInResponse {
+    private String userId;
     private String message;
 }

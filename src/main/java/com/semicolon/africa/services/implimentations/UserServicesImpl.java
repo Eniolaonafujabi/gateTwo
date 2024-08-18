@@ -1,6 +1,7 @@
 package com.semicolon.africa.services.implimentations;
 
 import com.semicolon.africa.data.models.Address;
+import com.semicolon.africa.data.models.Note;
 import com.semicolon.africa.data.models.Password;
 import com.semicolon.africa.data.models.User;
 import com.semicolon.africa.data.repositories.Users;
@@ -89,6 +90,7 @@ public class UserServicesImpl implements UserServices {
         if (decryptPassword(user.getPassword()).equals(request.getPassword())) {
             user.setState(true);
             users.save(user);
+            response.setUserId(user.getId());
             response.setMessage("Successfully logged in");
         }else {
             throw new UserException("Wrong details");
@@ -121,6 +123,7 @@ public class UserServicesImpl implements UserServices {
             map(response,password);
             List<Password> passwords = user.getPasswords();
             passwords.add(password);
+            user.setPasswords(passwords);
             users.save(user);
             return response;
         }
@@ -190,7 +193,13 @@ public class UserServicesImpl implements UserServices {
     public AddNoteResponse createNote(AddNoteRequest request) {
         User user = findUserById(request.getUserId());
         if (user.isState()){
-            return noteServices.createNote(request);
+            List<Note> notes = user.getNotes();
+            AddNoteResponse response = noteServices.createNote(request);
+            Note note = new Note();
+            note.setTitle(response.getTitle());
+            note.setContent(response.getContent());
+            notes.add(note);
+            users.save(user);
         }
         throw new UserException("You are not logged in");
     }
@@ -250,6 +259,7 @@ public class UserServicesImpl implements UserServices {
             map(address,response);
             List<Address> addresses = user.getAddresses();
             addresses.add(address);
+            user.setAddresses(addresses);
         users.save(user);
         return response;
         }

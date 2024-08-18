@@ -13,7 +13,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/user/")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserServices userServices;
@@ -46,7 +46,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("logOut/{id}")
+    @PatchMapping("logOut/{id}")
     public ResponseEntity<?> logOut(@PathVariable("id") String id) {
         LogOutRequest request = new LogOutRequest();
         request.setId(id);
@@ -58,8 +58,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("addContact")
-    public ResponseEntity<?> addContact(@RequestBody AddPasswordRequest addPasswordRequest){
+    @PostMapping("addPassword")
+    public ResponseEntity<?> addPassword(@RequestBody AddPasswordRequest addPasswordRequest){
         try {
             AddPasswordResponse addPasswordResponse = userServices.addPassword(addPasswordRequest);
             return new ResponseEntity<>(new ApiResponse(true, addPasswordResponse), CREATED);
@@ -232,6 +232,79 @@ public class UserController {
     public ResponseEntity<?> findAddressByMiddleName(@RequestBody FindAddressRequest findAddressRequest) {
         try {
             List<FindAddressResponse>findAddressResponse = userServices.findAddressByMiddleName(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("findAddressByLastName")
+    public ResponseEntity<?> findAddressByLastName(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByLastName(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByGender")
+    public ResponseEntity<?> findAddressByGender(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByGender(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByCompany")
+    public ResponseEntity<?> findAddressByCompany(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByCompany(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByAddress1")
+    public ResponseEntity<?> findAddressByAddress1(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findByAddress1(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByAddress2")
+    public ResponseEntity<?> findAddressByAddress2(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByAddress2(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByCityOrTown")
+    public ResponseEntity<?> findAddressByCityOrTown(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByCityOrTown(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByCountry")
+    public ResponseEntity<?> findAddressByCountry(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByCountry(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByState")
+    public ResponseEntity<?> findAddressByState(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByState(findAddressRequest);
             return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
         }catch (Exception message){
             return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
