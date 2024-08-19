@@ -91,6 +91,7 @@ public class UserServicesImpl implements UserServices {
             user.setState(true);
             users.save(user);
             response.setUserId(user.getId());
+            response.setUserEmail(user.getEmail());
             response.setMessage("Successfully logged in");
         }else {
             throw new UserException("Wrong details");
