@@ -310,4 +310,31 @@ public class UserController {
             return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
         }
     }
+    @GetMapping("findAddressByPhoneNumber")
+    public ResponseEntity<?> findAddressByPhoneNumber(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByPhoneNumber(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @GetMapping("findAddressByEmail")
+    public ResponseEntity<?> findAddressByEmail(@RequestBody FindAddressRequest findAddressRequest) {
+        try {
+            List<FindAddressResponse>findAddressResponse = userServices.findAddressByEmail(findAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, findAddressResponse), FOUND);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
+    @DeleteMapping("deleteAddressById")
+    public ResponseEntity<?> deleteAddressById(@RequestBody DeleteAddressRequest deleteAddressRequest) {
+        try {
+            DeleteAddressResponse deleteAddressResponse = userServices.deleteAddress(deleteAddressRequest);
+            return new ResponseEntity<>(new ApiResponse(true, deleteAddressResponse), OK);
+        }catch (Exception message){
+            return new ResponseEntity<>(new ApiResponse(false, message.getMessage()),BAD_REQUEST);
+        }
+    }
 }
