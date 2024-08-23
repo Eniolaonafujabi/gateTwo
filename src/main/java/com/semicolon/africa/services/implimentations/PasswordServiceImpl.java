@@ -108,6 +108,7 @@ public class PasswordServiceImpl implements PasswordService {
         return response;
     }
 
+
     @Override
     public String generatePassword() {
         RandomStringGenerator generator = new RandomStringGenerator.Builder()

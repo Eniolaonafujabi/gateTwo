@@ -40,6 +40,8 @@ public class UserServicesImpl implements UserServices {
         User user = new User();
         emailExits(request.getEmail());
         validateEmail(request.getEmail());
+        validatePhoneNumberLength(request.getPhoneNumber());
+        validatePasswordIsNotEmpty(request.getPassword());
         phoneNumberExits(request.getPhoneNumber());
         validatePhoneNumber(request.getPhoneNumber());
         map(request,user);
@@ -47,6 +49,19 @@ public class UserServicesImpl implements UserServices {
         RegisterUserResponse response = new RegisterUserResponse();
         map(response,user);
         return response;
+    }
+
+    private void validatePasswordIsNotEmpty(String password) {
+        String newPassword = password.trim();
+        if (newPassword.isEmpty()) {
+            throw new UserException("Password is empty");
+        }
+    }
+
+    private void validatePhoneNumberLength(String phoneNumber) {
+        if (phoneNumber.length() != 11) {
+            throw new UserException("Phone number must be 11 digits");
+        }
     }
 
     private void validatePhoneNumber(String phoneNumber) {
