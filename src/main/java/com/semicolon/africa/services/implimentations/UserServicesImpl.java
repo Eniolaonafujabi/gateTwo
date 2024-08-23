@@ -38,6 +38,7 @@ public class UserServicesImpl implements UserServices {
     @Override
     public RegisterUserResponse registerUser(RegisterUserRequest request) {
         User user = new User();
+        validateUserName(request.getUsername());
         emailExits(request.getEmail());
         validateEmail(request.getEmail());
         validatePhoneNumberLength(request.getPhoneNumber());
@@ -49,6 +50,13 @@ public class UserServicesImpl implements UserServices {
         RegisterUserResponse response = new RegisterUserResponse();
         map(response,user);
         return response;
+    }
+
+    private void validateUserName(String username) {
+        String newUserName =  username.trim();
+        if (newUserName.isEmpty()) {
+            throw new UserException("Username is empty");
+        }
     }
 
     private void validatePasswordIsNotEmpty(String password) {

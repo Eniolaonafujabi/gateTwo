@@ -113,7 +113,9 @@ public class Mapper {
         response.setEmail(address.getEmail());
         response.setMessage("Saved Successfully");
     }
-    public static void map(RegisterUserRequest request, User user){
+    public static void
+    map(RegisterUserRequest request, User user){
+        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(encryptPassword(request.getPassword()));
         user.setPhoneNumber(request.getPhoneNumber());
@@ -121,6 +123,7 @@ public class Mapper {
     }
     public static void map(RegisterUserResponse response, User user){
         response.setId(user.getId());
+        response.setUsername(user.getUsername());
         response.setEmail(user.getEmail());
         response.setPassword(decryptPassword(user.getPassword()));
         response.setPhoneNumber(user.getPhoneNumber());

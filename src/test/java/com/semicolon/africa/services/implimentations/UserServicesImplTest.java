@@ -41,6 +41,7 @@ public class UserServicesImplTest {
 
     private RegisterUserResponse registerUser() {
        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setUsername("username");
         registerUserRequest.setEmail("eniola@gmail.com");
         registerUserRequest.setPhoneNumber("08146997803");
         registerUserRequest.setPassword("password");
@@ -132,6 +133,7 @@ public class UserServicesImplTest {
     @Test
     public void testThatIfYouPutSpaceInPasswordThrowExeception(){
         RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setUsername("username");
         registerUserRequest.setEmail("eniola@gmail.com");
         registerUserRequest.setPhoneNumber("     ");
         registerUserRequest.setPassword("password");
@@ -141,6 +143,7 @@ public class UserServicesImplTest {
     @Test
     public void testThatIfYouPutSpaceInEmailThrowExeception(){
         RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setUsername("username");
         registerUserRequest.setEmail("    ");
         registerUserRequest.setPhoneNumber("91673828");
         registerUserRequest.setPassword("password");
@@ -150,6 +153,7 @@ public class UserServicesImplTest {
     @Test
     public void testThatIfYouDon_tPutAtAnnotationInEmailThrowExeception(){
         RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setUsername("username");
         registerUserRequest.setEmail("hbhfdhbdhbdhbf");
         registerUserRequest.setPhoneNumber("91673828");
         registerUserRequest.setPassword("password");
@@ -159,6 +163,7 @@ public class UserServicesImplTest {
     @Test
     public void testThatIfYouPutAtAnnotationInEmailMoreThanOneThrowExeception(){
         RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+        registerUserRequest.setUsername("username");
         registerUserRequest.setEmail("hbhf@@@dhbdhbdhbf");
         registerUserRequest.setPhoneNumber("91673828");
         registerUserRequest.setPassword("password");

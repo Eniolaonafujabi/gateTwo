@@ -13,6 +13,7 @@ import java.util.List;
 @Document("PhoneNumberManagementUser")
 public class User {
     private String id;
+    private String username;
     private String email;
     private String password;
     private String phoneNumber;
